@@ -1,0 +1,141 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{srcltx}
+\usepackage[colorlinks=false,pdfborder=000]{hyperref}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{titling}
+\usepackage[top=1.1in, bottom=1.1in, left=1.2in, right=1.2in]{geometry}
+\usepackage[dvips,pdftex]{graphicx,color}
+\DeclareGraphicsRule{*}{eps}{*}{}
+\usepackage{times}
+\usepackage{comment}
+\usepackage{subfigure}
+\usepackage{amssymb}
+%\usepackage[ruled]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\CSE}{\href{http://www.cse.cuhk.edu.hk}{Department of Computer Science and
+Engineering}}
+\newcommand{\CUHK}{\href{http://www.cuhk.edu.hk}{The Chinese University of Hong Kong}}
+\newcommand{\mymail}{\mbox{\textcolor{blue}{\underline{zgxiao@cse.cuhk.edu.hk}}}}
+\newcommand{\myname}{\href{http://www.cse.cuhk.edu.hk/~zgxiao}{XIAO Zigang}}
+\newcommand{\header}[1]{\noindent {\bf \\#1\\}}
+\renewcommand{\algorithmiccomment}[1]{//#1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretitle{\begin{center}\bf \LARGE} \posttitle{\par\end{center}}
+\preauthor{\begin{center}
+            \small \lineskip 0.5em%
+            \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\small} \postdate{\par\end{center}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{CEG5270 Assignment 2 (2009 Spring)}
+\author{\myname\\\mymail\\\CSE\\\CUHK}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\begin{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+First it is easy to know that for any pin pair, where one is in the top side and one is in the bottom side,
+they can use different vertical layers for routing and will not cause conflict, if there are two vertical layers.
+Then for the track assignment, since each net corresponds to a horizontal segment, 
+it turns out to be problem which finds the chromatic number of a segment graph.
+It is proved in assignment I that greedy algorithm similar to LEA can produce the optimal result.
+Since we know that the lower bound of the channel width is the max of:
+	\begin{enumerate}
+	\item\label{lb1}
+	length of the longest path in VCG
+	\item\label{lb2}
+	channel density
+	\end{enumerate}
+which also equals to the maximum clique in the segment graph.
+And we know that maximum clique size equals to chromatic number in the segment graph.
+Then we proved that LEA gives solution of minimum channel width.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+At most $K=4$ times of gain update is needed due to the change of a net.
+
+Since only critical nets will cause gain update, 
+we only need to consider those nets which are critical before or after the move.
+We observe that once two cells on a net are moved to X and another two cells are moved to Y,
+they are locked and it is impossible to make the net to be critical anymore.
+Hence it is the bound of updates. The worst case is at most 4, 
+if we assume every move bring changes before the net reaches the state mentioned above.
+For example, originally $X=\{A,B\},Y=\{C,D\}$, by moving them in the order $A,D,B,C$ will produce 4 gain updates, 
+but no further update anymore.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+Without loss of generality, we assume the routing direction is anti-clockwise.
+For a 2-pin net $i$, if there is net, say $j$,inside the bounding segment formed by $i$'s pins, 
+then $i$ will conflict with $j$ if and only if NOT all of $j$'s is inside the bounding segment,
+e.g. for net $b$, only $c_1$ is inside the bounding segment hence $c$ is conflict with $b$.
+But $a$ is not conflit with $b$ since all the pins of $a$,i.e. $a_1,a_2$ is inside $b_2$ to $b_3$.
+
+\begin{algorithm}[htbp!]
+\caption{Find Largest Routable Net Numer}
+\begin{algorithmic}[1]
+\REQUIRE A list of net pins $plist$, the starting terminal of each net is known.\\
+\STATE // construct of the cycle graph can be done in $O(n)$ time, where $n$ is the number of pins.
+\RETURN 
+\end{algorithmic}
+\end{algorithm}
+Suppose the pin number of net is bounded by a constant $P$, and there are totally $n$ nets.
+The runing time of the algorithm would be $(Pn)^2=O(n^2)$.Thus the whole
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+There are only three possible cases of exchange.They are:
+\begin{itemize}
+\item
+Exchange a corner node with another corner node. This gives a gain of 0.
+\item
+Exchange a corner node with a non-corner node.This gives a gain -1.
+\item
+Exchange a non-corner node with another non-corner node. This gives a gain -2.
+\end{itemize}
+We notice that none of them produces a positive gain, 
+hence in the process of finding $k$ s.t. $G=g_1+g_2+...+g_k$, the maximized value 0 should be reached when $k=n$.
+The algorithm stops here. It is a local minimum of K-L.
+\end{enumerate}
+\end{document}
+% \begin{algorithm}[htbp!]
+% \caption{Find Largest Routable Net Numer}
+% \begin{algorithmic}[1]
+% \REQUIRE A list of net pins $plist$, the starting terminal of each net is known.\\
+% \STATE queue $\leftarrow$ plist // put all elements of list into a queue
+% \WHILE { queue not empty }
+% 	\STATE $p \leftarrow $ queue.front()
+% 	\STATE $x \leftarrow $ pinOfNet(p) // check pin in which net
+% 	\IF {$p$ == $x$.startingTerminal } 
+% 		\STATE stack.push($p$) 
+% 		\STATE mark[$p$] $\leftarrow$ TRUE // mark starting terminal in stack
+% 		\STATE queue.remove($p$)
+% 	\ELSIF { mark[$p$] == TRUE }
+% 		\STATE // $p$ is not starting terminal, and starting terminal is in stack 
+% 		\STATE $j \leftarrow $ index of stack.top()
+% 		\IF { stack[$j$] == $x$.staringTerminal }
+% 			\STATE // do not intersect with any nets
+% 			\STATE stack.pop()
+% 		\ELSE 
+% 			\STATE mark al the net between this net as conflict
+% 			\WHILE { stack[$j$] $\neq$ $x$.staringTerminal }
+% 				\STATE $y \leftarrow $ pinInNet(stack[$j$])
+% 				\STATE conflictList[$x$].add(stack[$j$])
+% 				\STATE $j\leftarrow j-1$
+% 			\ENDWHILE
+% 		\ENDIF
+% 		\STATE queue.remove($p$)
+% 	\ELSE % ignore this net,put it into queue again
+% 		\STATE queue.remove($p$)
+% 		\STATE queue.pushback($p$)
+% 	\ENDIF
+% \ENDWHILE
+% \STATE // now we have the conflict information, choose those net conflict with least nets
+% \RETURN 
+% \end{algorithmic}
+% \end{algorithm}

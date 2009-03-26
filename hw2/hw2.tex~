@@ -1,0 +1,49 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{srcltx}
+\usepackage[colorlinks=false,pdfborder=000]{hyperref}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{titling}
+\usepackage[top=1.1in, bottom=1.1in, left=1.2in, right=1.2in]{geometry}
+\usepackage[dvips,pdftex]{graphicx,color}
+\DeclareGraphicsRule{*}{eps}{*}{}
+\usepackage{times}
+\usepackage{comment}
+\usepackage{subfigure}
+\usepackage{amssymb}
+%\usepackage[ruled]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\CSE}{\href{http://www.cse.cuhk.edu.hk}{Department of Computer Science and
+Engineering}}
+\newcommand{\CUHK}{\href{http://www.cuhk.edu.hk}{The Chinese University of Hong Kong}}
+\newcommand{\mymail}{\mbox{\textcolor{blue}{\underline{zgxiao@cse.cuhk.edu.hk}}}}
+\newcommand{\myname}{\href{http://www.cse.cuhk.edu.hk/~zgxiao}{XIAO Zigang}}
+\newcommand{\header}[1]{\noindent {\bf \\#1\\}}
+\renewcommand{\algorithmiccomment}[1]{//#1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretitle{\begin{center}\bf \LARGE} \posttitle{\par\end{center}}
+\preauthor{\begin{center}
+            \small \lineskip 0.5em%
+            \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\small} \postdate{\par\end{center}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{CEG5270 Assignment 2 (2009 Spring)}
+\author{\myname\\\mymail\\\CSE\\\CUHK}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\begin{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item
+\end{enumerate}
+\end{document}
